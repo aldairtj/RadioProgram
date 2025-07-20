@@ -1,0 +1,165 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Zona Compilada - Contacto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 60px;
+            height: 100vh;
+            background-color: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .sidebar i {
+            font-size: 24px;
+            color: #0ff;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .sidebar i:hover {
+            color: #f0f;
+        }
+
+        .header {
+            background-color: #111;
+            padding: 20px;
+            margin-left: 60px;
+            color: #0f0;
+            font-size: 24px;
+            border-bottom: 2px solid #f0f;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .content {
+            margin-left: 60px;
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            color: #0ff;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f0f;
+            padding-bottom: 10px;
+            text-shadow: 0 0 10px #0ff;
+        }
+
+        .form-container {
+            background-color: rgba(17, 17, 17, 0.9);
+            border: 1px solid #0ff;
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 600px;
+            box-shadow: 0 0 10px #0ff;
+        }
+
+        form label {
+            color: #0ff;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #0f0;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0c0;
+        }
+
+        .info-radio {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #111;
+            border: 1px solid #f0f;
+            border-radius: 12px;
+            color: #ccc;
+        }
+
+        .info-radio p {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 600px) {
+            .form-container, .info-radio {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="{% url 'Principal' %}"><i class="fas fa-home" title="Inicio"></i></a>
+        <a href="{% url 'Noticias' %}"><i class="fas fa-newspaper" title="Noticias"></i></a>
+        <a href="{% url 'Musicas' %}"><i class="fas fa-music" title="Músicas"></i></a>
+        <a href="{% url 'Programas' %}"><i class="fas fa-broadcast-tower" title="Programas"></i></a>
+        <a href="{% url 'Contacto' %}"><i class="fas fa-envelope" title="Contáctanos"></i></a>
+    </div>
+
+    <div class="header">
+        ZONA COMPILADA - Contáctanos
+    </div>
+
+    <div class="content">
+        <div class="section-title">Regístrate como Oyente</div>
+
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                {{ formulario|crispy }}
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+
+        <div class="section-title" style="margin-top: 50px;">Información de la Radio</div>
+        <div class="info-radio">
+            <p><strong>Nombre:</strong> Radio Zona Compilada</p>
+            <p><strong>Dirección:</strong> Av. Principal 123, Ciudad</p>
+            <p><strong>Teléfono:</strong> +51 987 654 321</p>
+            <p><strong>Email:</strong> contacto@zonacompilada.com</p>
+            <p><strong>Horario de atención:</strong> Lunes a Viernes, 8:00 a.m. - 10:00 p.m.</p>
+            <p><strong>Misión:</strong> Conectar a las personas con la mejor música y contenido local.</p>
+        </div>
+    </div>
+
+</body>
+</html>

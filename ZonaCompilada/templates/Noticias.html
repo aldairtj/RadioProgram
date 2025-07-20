@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Zona Compilada - Noticias RSS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 60px;
+            height: 100vh;
+            background-color: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .sidebar i {
+            font-size: 24px;
+            color: #0ff;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .sidebar i:hover {
+            color: #f0f;
+        }
+
+        .header {
+            background-color: #111;
+            padding: 20px;
+            margin-left: 60px;
+            color: #0f0;
+            font-size: 24px;
+            border-bottom: 2px solid #f0f;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        /* Tu CSS previo del section-news + cuadritos */
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+        .sidebar { /* ... mismo CSS ... */ }
+        .sidebar i:hover { color: #f0f; }
+        .header { /* ... */ }
+        .content { margin-left: 60px; padding: 30px; }
+        .section-title { font-size:26px; color:#0ff; margin-bottom:25px;
+            border-bottom:2px solid #f0f; padding-bottom:10px; text-shadow:0 0 10px #0ff; }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .news-card {
+            display: block;
+            background: rgba(17, 17, 17, 0.85);
+            border: 1px solid #0ff;
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px #0ff;
+        }
+
+        .news-card h3 {
+            color: #0ff;
+            margin-bottom: 10px;
+        }
+
+        .news-card p {
+            font-size: 14px;
+            color: #ccc;
+        }
+        .news-card a { display:inline-block; margin-top:10px; color:#0ff; text-decoration:none; }
+        @media (max-width:600px) { .news-card { padding:15px; } .news-card h3{font-size:18px;} .news-card p{font-size:14px;} }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="{% url 'Principal' %}"><i class="fas fa-home" title="Inicio"></i></a>
+        <a href="{% url 'Noticias' %}"><i class="fas fa-newspaper" title="Noticias"></i></a>
+        <a href="{% url 'Musicas' %}"><i class="fas fa-music" title="Músicas"></i></a>
+        <a href="{% url 'Programas' %}"><i class="fas fa-broadcast-tower" title="Programas"></i></a>
+        <a href="{% url 'Contacto' %}"><i class="fas fa-envelope" title="Contáctanos"></i></a>
+    </div>
+
+    <div class="header">ZONA COMPILADA - Noticias</div>
+
+    <div class="content">
+        <div class="section-title">Noticias del Día</div>
+        <div class="news-grid">
+            {% for noticia in noticias %}
+                <a href="{{ noticia.link }}" target="_blank" class="news-card">
+                    <h3>{{ noticia.title }}</h3>
+                    <p>{{ noticia.published }}</p>
+                    <p>{{ noticia.summary|safe }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
