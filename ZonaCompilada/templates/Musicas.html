@@ -1,3 +1,6 @@
+{% load static %}
+{% get_media_prefix as MEDIA_URL %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -115,6 +118,20 @@
                 font-size: 14px;
             }
         }
+        .music-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #0ff;
+            box-shadow: 0 0 8px #0ff33f66;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -144,30 +161,16 @@
     <div class="content">
         <div class="section-title">Recomendaciones Musicales</div>
         <div class="music-grid">
+            {% for cancion in canciones %}
             <div class="music-card">
-                <h3>Top 1 - Electrónica</h3>
-                <p>Descubre los mejores beats del momento con este mix electrónico que rompe las pistas.</p>
+                <img src="{{ MEDIA_URL }}{{ cancion.imagen }}" alt="{{ cancion.titulo }}" class="music-image">
+                <h3>{{ cancion.titulo }}</h3>
+                <audio controls>
+                    <source src="{{ MEDIA_URL }}{{ cancion.audio }}" type="audio/mpeg">
+                    Tu navegador no soporta audio HTML5.
+                </audio>
             </div>
-            <div class="music-card">
-                <h3>Clásicos del Rock</h3>
-                <p>Un repaso por los himnos del rock que marcaron generaciones, desde los 70 hasta hoy.</p>
-            </div>
-            <div class="music-card">
-                <h3>Lo Mejor del Pop</h3>
-                <p>Artistas destacados y los últimos lanzamientos del mundo pop que no puedes dejar de escuchar.</p>
-            </div>
-            <div class="music-card">
-                <h3>Indie y Alternativo</h3>
-                <p>Una selección de sonidos frescos, letras profundas y bandas emergentes que vale la pena seguir.</p>
-            </div>
-            <div class="music-card">
-                <h3>Favoritos de la Semana</h3>
-                <p>Las canciones más escuchadas por nuestra comunidad. ¡Vota por tu favorita!</p>
-            </div>
-            <div class="music-card">
-                <h3>Latinoamérica en Ritmo</h3>
-                <p>Desde el reggaetón hasta la cumbia moderna, una fusión de ritmos que mueve al continente.</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
 

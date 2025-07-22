@@ -1,4 +1,6 @@
 import feedparser
+import os
+from django.conf import settings
 from django.http import HttpResponse # type: ignore
 from django.shortcuts import render # type: ignore
 import datetime
@@ -22,7 +24,25 @@ def Noticias(request):
     return render(request, "Noticias.html", {"noticias": noticias})
 
 def Musicas(request):
-    return render(request, "Musicas.html")
+    media_dir = os.path.join(settings.MEDIA_ROOT, 'musica')
+    audio_files = [f for f in os.listdir(media_dir) if f.endswith('.mp3')]
+    image_files = [f for f in os.listdir(media_dir) if f.endswith(('.jpg', '.jpeg', '.png'))]
+
+    canciones = []
+    for audio in audio_files:
+        nombre_base = os.path.splitext(audio)[0]
+        for imagen in image_files:
+            if os.path.splitext(imagen)[0] == nombre_base:
+                canciones.append({
+                    'titulo': nombre_base.replace('_', ' ').title(),
+                    'audio': f'musica/{audio}',
+                    'imagen': f'musica/{imagen}',
+                })
+                break
+
+    return render(request, "Musicas.html", {
+        "canciones": canciones
+    })
 
 def Programas(request):
     return render(request, "Programas.html")
