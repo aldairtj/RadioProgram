@@ -25,10 +25,5 @@ urlpatterns = [
 
 
     path('',views.Hola, name = "index"),
-    path("saludar",views.Saludar, name = "saludar"),
-    path("calcular",views.calcular, name = "calcular"),
-    path("espar/<int:numero>",views.espar, name = "espar"),
-    path("saludar/<str:nombre>",views.Saludar2, name = "saludar2"),
-
     path('ZonaCompilada/', include("ZonaCompilada.urls"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

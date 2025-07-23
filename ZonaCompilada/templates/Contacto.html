@@ -123,6 +123,12 @@
                 padding: 15px;
             }
         }
+        .hidden {
+            display: none;
+        }
+        .contenido-principal {
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -148,6 +154,40 @@
                 {{ formulario|crispy }}
                 <button type="submit">Enviar</button>
             </form>
+        </div>
+
+        <div class="contenido-principal">
+            <button onclick="document.getElementById('tabla-oyentes').classList.toggle('hidden')">
+                Ver Oyentes Registrados
+            </button>
+
+            <div id="tabla-oyentes" class="hidden" style="margin-top: 20px;">
+                <h3 style="color: cyan;">Oyentes Registrados</h3>
+                <table border="1" cellpadding="8" style="color: white; border-color: cyan; border-collapse: collapse; width: 100%;">
+                    <thead style="background-color: #111;">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for oyente in oyentes %}
+                        <tr>
+                            <td>{{ oyente.nombre }}</td>
+                            <td>{{ oyente.apellidos }}</td>
+                            <td>{{ oyente.correo }}</td>
+                            <td>{{ oyente.telefono }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">No hay oyentes registrados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="section-title" style="margin-top: 50px;">Información de la Radio</div>

@@ -3,8 +3,8 @@ import os
 from django.conf import settings
 from django.http import HttpResponse # type: ignore
 from django.shortcuts import render # type: ignore
-import datetime
-from . import forms, models
+from . import forms
+from .models import Oyente
 
 # Create your views here.
 def Index(request):
@@ -47,9 +47,6 @@ def Musicas(request):
 def Programas(request):
     return render(request, "Programas.html")
 
-def Contacto(request):
-    return render(request, "Contacto.html")
-
 def registrar_oyente(request):
     if request.method == "POST":
         formulario = forms.FormularioOyente(request.POST)
@@ -58,23 +55,10 @@ def registrar_oyente(request):
             return HttpResponse("Te registraste correctamente como oyente de la radio.")
     else:
         formulario = forms.FormularioOyente()
-    
+
+    oyentes = Oyente.objects.all()  # Obtener todos los oyentes registrados
+
     return render(request, "Contacto.html", {
-        "formulario": formulario
-    })
-    
-def saludar(request):
-    return HttpResponse("<h1>Hola Miguel</h1>")
-
-def saludarconnombre(request, nombre):
-    return HttpResponse(f"<h1>Hola {nombre.capitalize()}</h1>")
-
-def llamarplantilla(request):
-    return render(request, "uno.html")
-
-def saludarConPlantilla(request, nombre):
-    fecha = datetime.datetime.now()
-    return render(request, "dos.html", {
-        "name":nombre.capitalize(),
-        "fecha": fecha
+        "formulario": formulario,
+        "oyentes": oyentes
     })
