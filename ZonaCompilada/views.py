@@ -8,7 +8,7 @@ from .models import Oyente
 
 # Create your views here.
 def Index(request):
-    return HttpResponse("Hola mundo desde clientes")
+    return render(request, "Inicio.html")
 
 def Principal(request):
     return render(request, "Principal.html")
@@ -70,7 +70,7 @@ def registrar_oyente(request):
         formulario = forms.FormularioOyente(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return HttpResponse("Te registraste correctamente como oyente de la radio.")
+            return render(request, "Registrado.html")
     else:
         formulario = forms.FormularioOyente()
 
