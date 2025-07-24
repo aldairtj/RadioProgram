@@ -47,6 +47,24 @@ def Musicas(request):
 def Programas(request):
     return render(request, "Programas.html")
 
+def Prog1(request):
+    return render(request, "Prog1.html")
+
+def Prog2(request):
+    return render(request, "Prog2.html")
+
+def Prog3(request):
+    return render(request, "Prog3.html")
+
+def Prog4(request):
+    return render(request, "Prog4.html")
+
+def Prog5(request):
+    return render(request, "Prog5.html")
+
+def Prog6(request):
+    return render(request, "Prog6.html")
+
 def registrar_oyente(request):
     if request.method == "POST":
         formulario = forms.FormularioOyente(request.POST)
